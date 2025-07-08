@@ -4,14 +4,10 @@ require('dotenv').config()
 //mongoose para conectar a mongodb
 const mongoose = require('mongoose')
 //express para crear el servidor
-const express = require('express')
-//inicializamos express
-const app = express()
+
 const port = 3000
 
-app.get("/", (req, res) => {
- return res.send("Hello World esta andando!")
-}   )
+const app= require('./app')
 
 
 
