@@ -6,6 +6,7 @@ const userController = require("../controllers/user.controller")
 //dos puntos porque paso de estar 
 // en user.routes a pasar a estar en routes luego a cero y entra a c
 //controllers y luego a user.controller
+//esto trae todo el archivo user.controller.js
 
 //ruta para obtener usuarios
 //GET/users
@@ -15,17 +16,21 @@ router.get("/users" , userController.getUsers )
 //Post/ users
 router.post ("/users", userController.createUser)
 
+//ruta para obtener un usuario por id
+//GET/users/:id
+router.get("/users/:id", userController.getUserById)
+
+
+//ruta para borrar usuario por id
+router.delete("/users/:id", userController.deleteUserById)
+
+//ruta para actualizar usuario por id
+router.put("/users/:id", userController.updateUserById)
+
+router.post("/login", userController.loginUser)
 
 module.exports =router;
 
 
 
 
-//ESTE CODIGO DE ABAJO ES LO PRIMERO DEL COMIENZO DE 
-//LA CLASE LO DE ARRIBA ES LO ULTIMO.. LO QUE VA
-//ruta para obtener todos los usuarios
-// router.get("/users" , (req, res) => {
-//  res.send("Endpoint para obtener todos los usuarios")})
-// console.log(router)
-
-// router.post("/users" , (req,res) => { res.send("usuario CREADO con exito") })

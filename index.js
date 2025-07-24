@@ -1,52 +1,28 @@
-//para empezar dotenv
-require('dotenv').config() 
 
-//mongoose para conectar a mongodb
-const mongoose = require('mongoose')
-//express para crear el servidor
-
-const port = 3000
-
-const app= require('./app')
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 
-
-app.get("/products" , (req,res) => {
-  const products = [
-    { id: 1, name: "Producto 1", price: 100 },
-    { id: 2, name: "Producto 2", price: 200 },
-    { id: 3, name: "Producto 3", price: 300 }
-  ] 
-  return res.send(products)
-})
-
-app.post("/products", (req, res) => {
-return res.send("Producto creado") })   
+const app = express();
 
 
+app.use(cors());
+app.use(express.json());
 
 
+const productRoutes = require('./routes/product.routes');
+app.use("/", productRoutes);
+const userRoutes = require('./routes/user.routes');
+app.use('/', userRoutes); // o app.use('/api', userRoutes);
 
-
-console.log("otro mensaje ahora con !!!!$$$!!!lucas")
-
-//con instalar la libreria "no demon" asi install i -D nodemon es lo mismo que poner --watch en donde dice "dev" 
-//"scripts": {
-    // "start": "node index.js",
-    // "dev": "node --watch index.js",
-    //luego hacemos npm run dev y es con --watch o con instalar nodemon
-//ahora con nodemon es lo mismo que poner --watch en donde dice "dev" 
-
-//no olvidarnos del return en el get o post
 
 mongoose.connect(process.env.MONGO_URI)
-.then(() =>  {
-//si la conexion es exitosa se ejecuta este bloque
-console.log("Conectado a MongoDB conexion exsitosa")
- app.listen(port, () => {
-  console.log(`el servidor esta corriendo en el servidor http://localhost:${port}`)
-} ) 
-}  )
-.catch(error  => {
-  console.error("Error al conectar a MongoDB:", error)
-})
+  .then(() => {
+    console.log(" Conectado a MongoDB");
+    app.listen(process.env.PORT, () => {
+      console.log(` Servidor corriendo en http://localhost:${process.env.PORT}`);
+    });
+  })
+  .catch(err => console.error(" Error al conectar MongoDB:", err));
